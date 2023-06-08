@@ -1,0 +1,430 @@
+% Indicate the main file. Must go at the beginning of the file.
+% !TEX root = ../main.tex
+
+%----------------------------------------------------------------------------------------
+% CHAPTER TEMPLATE
+%----------------------------------------------------------------------------------------
+
+
+\chapter{Explorative Annäherung} % Main chapter title
+\label{Chapter4} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+% SECTION 1
+%----------------------------------------------------------------------------------------
+\section{Das Korpus}
+
+Die Datengrundlage für die Analyse des Diskurses über die Volksschule in der Deutschschweiz ist ein Korpus aus retrodigitalisierten Drucken von den Plattformen \href{https://www.e-rara.ch/}{e-rara.ch} und \href{https://e-periodica.ch}{e-periodica.ch}. \href{https://e-rara.ch}{E-rara.ch} versammelt Digtalisate von Drucken und Einzelauflagen aus Schweizer Institutionen, während auf \href{https://e-periodica.ch}{e-periodica.ch} Schweizer Zeitschriften zu finden sind.\footnote{Das Korpus wurde von Philipp Dreesen zusammengestellt, aufbereitet und annotiert zur Verfügung gestellt.}
+
+Im Korpus wurden die Quellen der Plattformen versammelt, die zwischen dem 1.~Januar 1800 und dem 31.~Dezember 1870 publiziert wurden und deren Volltexte mindestens eine der Zeichenfolgen \textit{schulbildung}, \textit{schulwesen}, \textit{kantonalschul}, \textit{volksschul} oder \textit{primarschul} enthalten.
+
+Die Digitalisate wurden vonseiten der Plattformen mit einer Texterkennung (OCR) versehen. Durch die unterschiedliche Qualität der Digitalisate können nicht immer alle Worte im Text zuverlässig maschinenlesbar gemacht werden. Das hat zum einen zur Folge, dass die Anzahl und Frequenz der Suchtreffer nicht genau ist. Ausserdem können falsch erkannte Worte zu Fehlern bei der Lemmatisierung oder Tokenisierung führen, wie bei den ersten explorativen Beispielen gezeigt wird. Zuletzt bedeutet eine nicht-zuverlässige Erkennung auch, dass nicht garantiert werden kann, dass ein Begriff, der nicht per Abfrage gefunden wurde, nicht dort im Korpus auftaucht.
+
+Die heruntergeladenen rohen OCR-Daten wurden anschliessend tokenisiert, das heisst in einzelne Worteinheiten und andere Einheiten zerlegt und linguistisch annotiert. Bei der Annotation wurden den einzelnen Tokens maschinell weitere Informationen hinzugefügt. Hier wurden die Lemmata der Wörter, also die Grundform des jeweiligen Wortes, ergänzt sowie Informationen zur Wortart hinzugefügt (\cite[57-87]{lemnitzer_korpuslinguistik_2015}). Die Wortformen (z.~B.~finites Verb, Eigennamen, etc.) werden als «Part of speech» (POS) und können entsprechend gesucht werden. Daneben werden auch Interpunktionszeichen oder Token, die nur aus Zahlen bestehen, als eigenständige POS attributiert. Beispielsweise zeigt \texttt{[word="Ta\-belle"]\-[pos="VVFIN"]} alle Treffer, wo das Token \textit{Tabelle} von einem finiten Vollverb gefolgt wird. Verwendet wird das Stuttgart-Tübingen Tagset (STTS), das sich im deutschen Sprachraum als Standard etabliert hat (\cite{schiller_guidelines_1999}). Das erlaubt die Suche nach komplexeren Mustern im Korpus. Angesichts der sehr schwankenden OCR-Qualität der im vorliegenden Korpus enthaltenen Texte dürfte die Lemmatisierung und Annotation in vielen Fällen nicht erfolgreich gewesen sein. Da bei einer Konzentration auf die annotierten Daten semantische Informationen verloren gehen können (\cite[124-127]{bubenhofer_sprachgebrauchsmuster_2009}), werde ich öfter nach einzelnen Wortformen und nicht Lemmata suchen. Das heisst, dass eine Abfrage wie \texttt{[word=\string"Schül\-er\-innen"]} nur Token gefunden werden, die genau diese Zeichenfolge enthalten, während eine Suche wie \texttt{[lemma\-=\string"Schüler\-innen"]} sowohl das Token \textit{Schül\-er\-in} wie auch \textit{Schülerinnen} findet.
+
+Insgesamt enthält das Korpus \numprint{13306} unterschiedliche Texte mit insgesamt \numprint{74096351} Token. Eine Einteilung des Korpus in Subkorpora per Dekade zeigt eine gleichmässige Verteilung der Wortmenge im Zeitraum 1830 bis 1870. Auffällig ist die sehr geringe Menge an Texten und Token für den Zeitraum 1810 bis 1829. Ebenfalls auffällig ist, dass die Tokenmenge pro Text sich sehr verändert. Beispielsweise kommen 1800–1809 4.4 Millionen Token auf \numprint{1189} Texte, also \numprint{3735} Token pro Text, während 1830–1839 ein Text durchschnittlich \numprint{8306} Token enthält (\cref{table:4-1}). 
+
+\hspace{1cm}
+
+\renewcommand{\arraystretch}{0.7}{
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{rrr}
+        \toprule
+        \textbf{Subkorpus} & \textbf{Grösse} & \textbf{Anzahl Token} \\
+        \midrule
+        1800–1809 & \numprint{1189} Texte & \numprint{4440324} \\
+        \addlinespace[2pt]
+        1810–1819 & 84 Texte & \numprint{770109} \\
+        1820–1829 & 304 Texte & \numprint{3976613} \\
+        1830–1839 & \numprint{1323} Texte & \numprint{10988279} \\
+        1840–1849 & \numprint{1564} Texte & \numprint{28525988} \\
+        1850–1859 & \numprint{4429} Texte & \numprint{17088456} \\ 
+        1860–1869 & \numprint{4151} Texte & \numprint{16937411} \\ 
+        1870 & 262 Texte & \numprint{2013970} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Grösse der Subkorpora nach Dekaden}
+\label{table:4-1}
+\end{table}
+}
+
+Den Ansätzen der korpusgestützen Linguistik folgend wird das Korpus induktiv untersucht, das heisst Hypothesen und Kategorien für die weitere Analyse werden aus dem Korpus gewonnen. Zu beachten ist aber, dass auch solche induktive Analyse nicht ohne Vorannahmen auskommt. Diese betreffen einerseits erkenntnistheoretische Grundannahmen wie auch die Zusammenstellung des Korpus, als auch Vermutungen zu Aussagemöglichkeiten des Korpus und die verwendeten Methoden.
+
+Das Korpus wird mit der Software CWP/CQP bzw.~dessen webbasierter Suchoberfläche CQPWeb analysiert. CQPWeb ermöglicht gängige statistische Untersuchungen von Korpora wie Kollokations- und Häufigkeitsanalysen und, sofern das Korpus entsprechend annotiert wurde, eine Untersuchung nach Lemmata und Wortarten (\cite{hardie_cqpweb_2021}).\footnote{Ich danke Klaus Rothenhäusler für die technische Unterstützung bei der Verwendung von CQPWeb.}
+
+\section{Entwicklung von Begriffen im Zusammenhang mit Statistik}
+
+\subsection{Diachronische Keywords}
+
+Ein gängiges Verfahren, um einen ersten Überblick über ein grosses Korpus und typische Wörter zu bekommen, ist die Keyword-Analyse. Hier wird das Korpus mit einem Referenzkorpus verglichen, um signifikante Unterschiede festzustellen. Wörter, die im Untersuchungskorpus deutlich frequenter sind als im Referenzkorpus, können als typisch für das Korpus gelten (\cite[74]{bubenhofer_kollokationen_2017}). Im vorliegenden Fall steht jedoch kein Referenzkorpus zur Verfügung, das einen allgemeinen Sprachgebrauch des 19.~Jahrhunderts abbilden würde und mit dem Untersuchungskorpus verglichen werden könnte. Stattdessen wurde das Korpus in zwei Subkorpora unterteilt, die beide je die Hälfte des Untersuchungszeitraumes umfassen. Das erste Korpus enthält Texte aus dem Zeitraum 1800 bis 1834, das andere Texte mit Veröffentlichungsdatum in den Jahren von 1835 bis 1870. Ein Vergleich der beiden Subkorpora könnte erste Einblicke in signifikante Unterschiede zwischen den beiden Korpushälften geben (für andere Ansätze im Umgang mit einem historischen Korpus, siehe \cite{bubenhofer_korpuspragmatische_2014}).
+
+Tabelle~\ref{table:4-2}\footnote{Die vollständigen Ergebnisse der Abfragen dieser Arbeit stehen unter \url{https://github.com/mac-fvb/ZHAW_thesis-applied-linguistics/tree/master/Data} zur Verfügung.} zeigt die 50 Begriffe des Subkorpus mit den Texten von 1835 bis 1870, die im Vergleich zu den Jahren 1800 bis 1834 von CQPWeb nach dem «Log Ratio»-Wert als Keywords berechnet wurden.\footnote{Token, die nur aus Zahlen bestehen, wurden aus den von CQPWeb erzeugten Ergebnissen herausgefiltert.} Log Ratio ist ein geeigneter Masswert, um zu berechnen, wie häufig ein Token in einem Korpus gegenüber einem anderen Korpus auftritt (\cite{hardie_log_2014}). Mass für die Bewertung eines Keywords ist nicht die absolute Häufigkeit eines Tokens im Subkorpus, sondern sein statistisch signifikantes, überzufällig häufiges Vorkommen in dem Korpus im Vergleich zu einem Referenzkorpus (\cite{gabrielatos_keyness_2018}). Das bedeutet, je höher hier der Log Ratio-Wert, desto stärker ist ein Begriff im Subkorpus überrepräsentiert. Aus strenger statistischer und korpuslinguistischer Sicht genügt die Analyse nicht den Massstäben für Signifikanz, aber ermöglicht dennoch eine erste Annäherung, um Hinweise für mögliche weitere Untersuchungsschritte zu gewinnen.
+
+\hspace{1cm}
+
+\begin{longtable}{llrrr}
+    \toprule
+    \textbf{Position} & \textbf{Token} & \multicolumn{1}{p{2cm}}{\textbf{Häufigkeit pro Mio. Wörter 1835–1870}} & \multicolumn{1}{p{2cm}}{\textbf{Häufigkeit pro Mio. Wörter 1800–1834}} & \textbf{Log ratio} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{5}{c}%
+    {{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite}} \\[1mm]
+    \textbf{Position} & \textbf{Token} & \multicolumn{1}{p{2cm}}{\textbf{Häufigkeit pro Mio. Wörter 1835–1870}} & \multicolumn{1}{p{2cm}}{\textbf{Häufigkeit pro Mio. Wörter 1800–1834}} & \textbf{Log ratio} \\
+    \midrule
+    \endhead
+    \midrule \multicolumn{5}{r}{{Fortsetzung auf nächster Seite}} \\
+    \endfoot
+    \endlastfoot
+            1 & wät & 22.17 & 0.22 & 6.63 \\
+            2 & Pfr & 113.41 & 1.19 & 6.57 \\ 
+            3 & Soeben & 25.57 & 0.3 & 6.42 \\ 
+            4 & gum & 24.76 & 0.3 & 6.37 \\ 
+            5 & unb & 621.21 & 8.36 & 6.22 \\ 
+            6 & bie & 443.25 & 6.34 & 6.13 \\ 
+            7 & Jnterlaken & 25.85 & 0.37 & 6.11 \\ 
+            8 & Ba« & 24.91 & 0.37 & 6.06 \\ 
+            9 & Kt. & 45.26 & 0.75 & 5.92 \\ 
+            10 & Bem & 137.68 & 2.54 & 5.76 \\ 
+            11 & »or & 11.93 & 0.22 & 5.74 \\ 
+            12 & Sekundar- & 11.86 & 0.22 & 5.73 \\ 
+            13 & Staatsbeitrag & 15.34 & 0.3 & 5.68 \\ 
+            14 & bth & 14.61 & 0.3 & 5.61 \\ 
+            15 & CtS & 44.79 & 0.97 & 5.53 \\ 
+            16 & Bundesversammlung & 13.71 & 0.3 & 5.52 \\ 
+            17 & Behaart & 16.64 & 0.37 & 5.48 \\ 
+            18 & Referat & 13.16 & 0.3 & 5.46 \\ 
+            19 & fid & 12.9 & 0.3 & 5.43 \\ 
+            20 & amtliches & 18.76 & 0.45 & 5.39 \\ 
+            21 & turnen & 24.6 & 0.6 & 5.36 \\ 
+            22 & Std & 18.04 & 0.45 & 5.33 \\ 
+            23 & aud & 20.74 & 0.52 & 5.31 \\ 
+            24 & mln & 8.17 & 0.22 & 5.19 \\ 
+            25 & Volksschule & 98.02 & 2.69 & 5.19 \\ 
+            26 & Anmeldungen & 8.12 & 0.22 & 5.18 \\ 
+            27 & 3eit & 8.04 & 0.22 & 5.17 \\ 
+            28 & bte & 40.12 & 1.12 & 5.16 \\ 
+            29 & »on & 162.72 & 4.63 & 5.14 \\ 
+            30 & resp. & 10.48 & 0.3 & 5.13 \\ 
+            31 & lehrerstand & 7.81 & 0.22 & 5.12 \\ 
+            32 & Durchschnittlich & 31.1 & 0.9 & 5.12 \\ 
+            33 & lehrerbildung & 7.73 & 0.22 & 5.11 \\ 
+            34 & Vorlagen & 10.3 & 0.3 & 5.11 \\ 
+            35 & Msgr & 7.71 & 0.22 & 5.11 \\ 
+            36 & Seminardirektor & 20.36 & 0.6 & 5.09 \\ 
+            37 & Balb & 7.53 & 0.22 & 5.07 \\ 
+            38 & nad & 22.42 & 0.67 & 5.06 \\ 
+            39 & Gefleckt & 7.46 & 0.22 & 5.06 \\ 
+            40 & Sekundarschulen & 29.42 & 0.9 & 5.04 \\ 
+            41 & Kantonstheil & 7.23 & 0.22 & 5.01 \\ 
+            42 & Gymn & 7.22 & 0.22 & 5.01 \\ 
+            43 & Primarlehrer & 9.6 & 0.3 & 5.01 \\ 
+            44 & beren & 7.13 & 0.22 & 4.99 \\ 
+            45 & fût & 23.56 & 0.75 & 4.98 \\ 
+            46 & nationalen & 7.05 & 0.22 & 4.98 \\ 
+            47 & Narbe & 7.03 & 0.22 & 4.97 \\ 
+            48 & laffen & 11.48 & 0.37 & 4.94 \\ 
+            49 & Jgfr & 6.89 & 0.22 & 4.94 \\ 
+            50 & Eisenbahnen & 11.33 & 0.37 & 4.92 \\ 
+            \bottomrule
+        \caption{Keywords im Surbkorpus 1835–1870 im Vergleich zu 1800–1834}
+       \label{table:4-2}
+    \end{longtable}
+
+Die Tabelle~\ref{table:4-2} zeigt die Schwierigkeit in der korpuslinguistischen Arbeit mit retrodigialisierten und OCR-erkannten Texten: Zeichen werden nicht richtig erkannt und zusammengehörige Wörter werden nach dem Schriftsatz getrennt, womit sie im Korpus als eigenständige Token erscheinen. Dies hat zur Folge, dass auch die automatisierte Erkennung der Wortformen weniger zuverlässig ist. Die Tabelle listet denn auch einige Fragmente auf.
+
+Unter diesem Vorbehalt zeigt die Übersicht, welche Begriffe in der diachronisch zweiten Hälfte des Gesamtkorpus überzufällig häufig auftauchen. Im Zusammenhang mit statistischen Diskursen ist einzig das Wort «Durchschnitt» einschlägig. In Bezug auf Diskurse um die Schule lassen sich Anzeichen erkennen, dass Themen der Sekundarschulen und der Lehrerbildung ab 1835 häufiger diskutiert wurden. Eine Hypothesenbildung für weitere Anfragen an den Korpus in Bezug auf die Fragestellung, die Etablierung einer statistischen Selbstbeschreibung der Schweizer Gesellschaft im Diskurs um die Volksschule, findet aber wenig Anknüpfungspunkte.
+
+\subsection{Wörterbuchansatz}
+
+\citeauthor{buchner_zur_2020} nutzen einen Wörterbuchansatz um Trends der quantitativen Forschung in der deutschsprachigen Geschichtswissenschaft des 20.~Jahrhunderts zu erforschen. Zur Erstellung nutzten sie ein Korpus von deutschsprachigen Statistiklehrbüchern mit Erscheinungsdatum zwischen 1946 und 2013, aus deren Glossaren und Indizes sie \numprint{1081} Lemmata bzw.~\numprint{2928} flektierte Wörter mit eindeutigem Statistikbezug identifizierten. Durch dieses Verfahren soll das Wörterbuch möglichst objektiv einen charakteristischen Sprachgebrauch abbilden, wenn es um Statistik geht. Die verwendenten Begriffe erlauben zudem einen Schluss auf das methodische Niveau der im Text besprochenen statistischen Arbeiten (\cite[596-599]{buchner_zur_2020}).
+
+Aus forschungspraktischen Gründen stütze ich mich auf dieses Wörterbuch,\footnote{Das Wörterbuch wurde freundlicherweise von den Autoren zur Verfügung gestellt. Es ist einsehbar unter \url{https://github.com/mac-fvb/ZHAW_thesis-applied-linguistics/tree/master/Data/Buchner_et_al_Woerterbuch.csv}.} auch wenn ein aus Quellen des 20.~Jahrhunderts erstelltes Buch nicht zuverlässig den Sprachgebrauch und die statistischen Praktiken des 19.~Jahrhunderts abbilden kann. Für einen ersten Überblick über das vorliegende Korpus und die Frage danach, wie weit statistische Begriffe im Diskurs verankert sind, ist es allerdings brauchbar.
+
+\hspace{1cm}
+
+\begin{longtable}{llr}
+    \toprule
+    \textbf{Position} & \textbf{Token} & \textbf{Anzahl} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{3}{c}%
+    {{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite}} \\[3mm]
+    \textbf{Position} & \textbf{Token} & \textbf{Anzahl} \\
+    \midrule
+    \endhead
+
+    \midrule \multicolumn{3}{r}{{Fortsetzung auf nächster Seite}} \\
+    \endfoot
+
+    \endlastfoot
+        1 & Tabelle & 2197 \\ 
+        2 & Durchschnitt & 1785 \\ 
+        3 & Erhebung & 1357 \\ 
+        4 & Tabellen & 1322 \\ 
+        5 & Schätzung & 1191 \\ 
+        6 & Statistik & 1129 \\ 
+        7 & Prozent & 961 \\ 
+        8 & Quotienten & 698 \\ 
+        9 & Logarithmen & 575 \\ 
+        10 & Durchschnitte & 567 \\ 
+        11 & Quotient & 499 \\ 
+        12 & Zählung & 474 \\ 
+        13 & durchschnitten & 436 \\ 
+        14 & Messungen & 374 \\ 
+        15 & Messung & 342 \\ 
+        16 & Exponenten & 323 \\ 
+        17 & Multiplikator & 309 \\ 
+        18 & Schätzungen & 264 \\ 
+        19 & Exponent & 238 \\ 
+        20 & zählungen & 200 \\ 
+        21 & Erhebungen & 194 \\ 
+        22 & Logarithmus & 168 \\ 
+        23 & Ordinate & 168 \\ 
+        24 & Quadratwurzel & 162 \\ 
+        25 & Prozente & 135 \\ 
+        26 & Index & 119 \\ 
+        27 & Integral & 119 \\ 
+        28 & Prozenten & 99 \\ 
+        29 & Durchschnitts & 76 \\ 
+        30 & graphen & 76 \\ 
+        31 & Multiplikators & 68 \\ 
+        32 & integrale & 51 \\ 
+        33 & Ordinaten & 51 \\ 
+        34 & Summanden & 50 \\ 
+        35 & Fruchtbarkeitsziffer & 44 \\ 
+        \bottomrule
+    \caption{Treffer für Einträge aus dem Wörterbuch «Quantifizierung» von \cite{buchner_zur_2020}, Frequenz > 40}
+    \label{table:4-3}
+\end{longtable}
+
+Aus den \numprint{2928} Einträgen im Wörterbuch konnten 104 im Korpus nachgewiesen werden (s.~Tabelle~\ref{table:4-3}). Bei näherer Betrachtung der häufigen Treffer im Kontext in der sogenannten KWIC-Ansicht (Keywords in Context) zeigen sich erneut die Schwächen der OCR-erkannten Texte, wenn etwa das kleingeschriebene «s» als «f» erkannt wird. Die Treffer zu \textit{durchschnitten} (Position 13 in \cref{table:4-3}) entstammen geografischen Beschreibungen oder einem geometrischen Lehrbuch (vgl.~Tabelle~\ref{table:4-4}).
+
+\hspace{2cm}
+
+{\footnotesize
+\begin{spacing}{1}
+\renewcommand*{\arraystretch}{1.1}
+\begin{longtable}{p{0.1cm}p{5cm}cp{5cm}}
+    \toprule
+    \textbf{Position} & \textbf{Kontext vor} & \textbf{Suchbegriff} & \textbf{Kontext nach} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{4}{c}%
+    {{\normalsize \tablename\ \thetable{} -- Fortsetzung von vorheriger Seite}} \\[1mm]
+    \textbf{Position} & \textbf{Kontext vor} & \textbf{Suchbegriff} & \textbf{Kontext nach} \\
+    \midrule
+    \endhead
+    \midrule \multicolumn{4}{r}{{\normalsize Fortsetzung auf nächster Seite}} \\
+    \endfoot
+    \endlastfoot
+            1 & gründen können ; und durch Hülfe derselben fünfmal das Flußbett der Lanquart & durchschnitten & , ste iu ihrem Lauf abge¬ sperrt , « m sie in  \\ 
+            2 & nordöstlichen Seite des Tiefentobels , ist dasselbe von unregelmäßigen Gängen und Trümmern & durchschnitten & , die im ganzen genom- men gleiche Richtungs- und Fallungslinie mit diesem \\ 
+            3 & An derjenigen Stelle des Tiefentobels , wo dieses Erzführende Lager von jenem & durchschnitten & , vom Kegel abge- wikkelt und in einer Ebene ausgebreitet \\ 
+            4 & einmal ward dunkle Nacht , die von den Feuerfunken der Eisenbahn bisweilen & durchschnitten & wurde ; ein unwillkührlichcs Stillschweigen bewältigte die ganze Menge , gleich als  \\ 
+            5 & diese Männer vereinigt . Keine Aufregung war sichtbar , keine wilden Cheers & durchschnitten & 	
+            die Luft , kein rhetorisches Ge- pränge unerquicklich wie Wüstensand , sondern  \\ 
+            6 & beiden gleichlaufenden Geraden âll und El ) von der Linie E ? & durchschnitten & ; so fragt es sich : wie die übereinstimmenden W. , die  \\ 
+            7 & II. Es seien umgekehrt die Geraden und EO 46 von EE & durchschnitten & , und es sei IN - II , oder u X oder  \\ 
+            8 & X. 4 ) s. Werden zwei gleichlaufende Gerade von einer dritten Linie & durchschnitten & : so sind die über¬ einstimmenden W. einander gleich , die innern  \\ 
+            9 & Zweig da wo das neue einjährige und das alte Holz sich scheidet & durchschnitten & und so eingesetzt . Es bildet sich hart um den Schnitt ein  \\ 
+            10 & nach oben und unten getrennt wird , mit einem scharfen Messer quer & durchschnitten & 	
+            und auf eine Länge von zirka 1/ mit 4—5 Augen abgekürzt .  \\ 
+            11 & der Pyramide , des Ke- gels und Cylin Vers ; dieselben & durchschnitten & und deren Oberfläche auf eine Ebene entwickelt als Netz gezeichnet . Durchdringung  \\ 
+            12 & seitige ; 3. ein Cylinder , wo möglich parallel mit der Grundfläche & durchschnitten & 	
+            ; 4. mehrere Pyramiden , darunter ein Tetraeder und etwa eine parallel  \\ 
+            13 & der Grundfläche durchschnittene ; 5. ein Kegel , parallel mit der Grundfläche & durchschnitten & 	
+            ; K. eine Kugel , wo möglich zweimal , nach einem größten  \\ 
+            14 & wo möglich zweimal , nach einem größten und einem kleineren Kreise & durchschnitten & . Wünschenswerth find ferner : Einige Drahtnetze , welche nur die Kanten  \\ 
+            15 & — auch fände sich der Canton durch einen Distrikt des CantvnS Zürich & durchschnitten & , lind dadurch im Zusammenhang unterbrochen . — Diese geographische Schilderung wird  \\ 
+            \bottomrule
+        \caption{KWIC-Ansicht für \texttt{[word="durchschnitten"\%c]}}
+        \label{table:4-4}
+\end{longtable}
+\end{spacing}}
+
+Bei den Treffern für \textit{Durchschnitt} (Position 2) zeigt sich hingegen ein gemischtes Bild: Sie tauchen sowohl in geografischen Kontexten als auch solchen mit Rechnungen und Zahlenwerten auf. Für die Treffer \textit{Zählung} (Position 12) zeigt die KWIC-Ansicht, dass viele Treffer ebenfalls aus falsch erkannten Wörtern stammen, die im Satzspiegel der Quellen umbrochen wurden wie beispielsweise Er-\textit{zählung} (Positionen 7, 12, 14 und 15 in \cref{table:4-5}).\footnote{Der gleiche Befund gilt auch für \textit{zählungen} (Position 20).} Darunter sind aber ebenfalls Themen der zeitgenössischen Statistikdiskussion wie \textit{Volkszählung} (Position 11) oder mehrere Zählungen in Bezug auf statistische Erhebungen (Positionen 1–6, 8, 11, 13). Dasselbe trifft auf \textit{schätzung} zu, dass sowohl Treffer aus dem Bereich der Wertung enthält (\textit{Geringschätzung}, \textit{Wert[h]schätzung}, \textit{Unterschätzung}, \textit{Überschätzung}) wie auch einschlägig statistische Wörter wie \textit{Gebäudeschätzung} und \textit{Größea[n]schätzung} enthält.
+
+\hspace{1cm}
+
+{\footnotesize
+\begin{spacing}{1}
+\renewcommand*{\arraystretch}{1.1}
+\begin{longtable}{p{0.1cm}p{5cm}cp{5cm}}
+    \toprule
+    \textbf{Position} & \textbf{Kontext vor} & \textbf{Suchbegriff} & \textbf{Kontext nach} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{4}{c}%
+    {{\normalsize \tablename\ \thetable{} -- Fortsetzung von vorheriger Seite}} \\[3mm]
+    \textbf{Position} & \textbf{Kontext vor} & \textbf{Suchbegriff} & \textbf{Kontext nach} \\
+    \midrule
+    \endhead
+    \midrule \multicolumn{4}{r}{{\normalsize Fortsetzung auf nächster Seite}} \\
+    \endfoot
+    \endlastfoot
+            1 & mit den amtlichen , im Amtsblatte enthaltenen Angaben nicht übcrein . Die  & Zählung & des Viehstandes vom Jahre 1846 ist insoweit unrichtig , weil in jenem   \\ 
+            2 & vom Jahre 1846 ist insoweit unrichtig , weil in jenem Jahre keine  & Zählung & stattfand . Der Verfasser fcheint die im gleichen Jahre in den Verhandlungen  \\ 
+            3 & verzeichnet . Heute dürfte Florenz etwa 186,666 Einwohner zählen ( eine offizielle  & Zählung & hat seit der Ausdehnung der städtischen Grenzen und dem aus 36,666 Köpfe  \\ 
+            4 & Cantons das immerwährende Woh¬ nungsrecht besaßen und noch besitzen . Die letzte  & Zählung & dcr Landfaßen geschah im Jahr 1818 und betrug 2569 Köpfe . Zum  \\ 
+            5 & das Departement dcs Innern im Laufe des JahrS 1832 eine zweite genaue  & Zählung & 	
+            veranstalten , allein dicscS Bcgchrcn blieb bisher ohne Erfolg , weil ,   \\ 
+            6 & Bevölkc- Eine runq n , d. Wirth , schaue » .  & Zählung & schjtft aus von l«z> . Kopfe . Amtsbezirk Aarberg 20 12702 636   \\ 
+            7 & Auge- denken , als daß wir , durch hier ganz üderflüßige Her-  & Zählung & desselben , von Ihrer — nicht der Rüge ftü- herer Mißgriffe ,   \\ 
+            8 & 88 ! c\>S Activbürger waren in Schams und Rhein¬ wald , nach  & Zählung & vom Jahr 1799. Schams : Zillis ioo . Andeer ns . Do-1   \\ 
+            9 & Novelle\guillemetleft- von L. A. Ohorn . \^ Das Gespenst . Et-  & Zählung & von Julius Uliczny . — Allerlei , Re\> bus und Illustrationen. . \\ 
+            10 & trugen sie in der verfassungsmäßig anberaumten Zeit gen Liestal . Bei der & Zählung & 	
+            der Stimmen zeigte sich , daß die Einsprache des Volkes gegen das  \\ 
+            11 & zur Statistik des Kantons , welches den Schluß der Ergebnisse der Volks¬  & Zählung & von I860 und der vergleichenden Zusammenstellungen derselben und der Ergebnisse früherer Volkszählungen   \\ 
+            12 & jede Woche des Iah- res eine kurze Betrachtung mit einer entsprechenden Er-  & Zählung & . \^ \guillemetleft Kalender für Zeit und Ewigkeit , von Alb , \\ 
+            13 & Andere muß- ten nach der ersten Probezeit entlassen werden . Eine Auf-  & Zählung & der Taubstummen vom Jahre 1839 wies im Kau- ton 571 solcher Unglücklichen   \\ 
+            14 & 77 S. Der Grund und Boden , worin der Inhalt dieser Er¬  & Zählung & .wurzelt , sind einerseits die Krcuzzüge , von denen IV . 23   \\ 
+            15 & Gebetver- trauen habe sich der orientalischen Phantasie eingekleidet , wie die Er-  & Zählung & von Josua lautet , wollten wir nicht unbedingt so nennen . Aber   \\ 
+            \bottomrule
+        \caption{KWIC-Ansicht für \texttt{[word=\string"\phantom{}Zählung"\%c]}}
+        \label{table:4-5}
+    \end{longtable}
+\end{spacing}}
+
+\subsubsection{\textit{tabelle}, \textit{durchschnitt} und \textit{prozent}}
+\label{chapter4-2-2-1}
+
+Aus der Überprüfung der weiteren Treffer von Tabelle~\ref{table:4-3} ergibt sich, dass allein die Token \textit{Tabelle}, \textit{Durchschnitt}, \textit{Statistik}, \textit{Prozent}, \textit{Fruchtbarkeitsziffer} und mit Abstrichen \textit{Zählung[en]} eindeutig oder vorwiegend in Bezug auf die Diskussion von Zahlen und Statistik verwendet werden und hinreichend frequent (d.~h.~mehr als fünf Treffer) auftreten. Diese fünf Token wurden jeweils im Korpus gesucht, um weiteren Aufschluss über ihre Verwendungskontexte zu erhalten. Die 44 Treffer zu \textit{Fruchtbarkeitsziffer} entstammen jedoch alle demselben Text, weshalb sie nicht berücksichtigt werden. 
+
+Im Hinblick auf die Fragestellung interessant sind die Treffer zu \texttt{[word=".*tabell.*"\%c]}. Unter den häufigeren Treffern finden sich die Token \textit{Schultabelle} sowie \textit{Absenz[en]tabelle} und \textit{Versäumnißtabelle[n]}. Letztere verweisen auf die Durchsetzung der allgemeinen Schulpflicht, für das die Tabelle als Kontrollinstrument verwendet wurde. Dieser Gedanken wird in Kapitel \ref{chapter-5-4} weiterverfolgt.
+
+Die signifikante Häufung des Tokens \textit{Durchschnitt} wurde schon in Tabelle~\ref{table:4-2} als ein möglicher Indikator für ein Aufkommen statistischer Denkmuster in der zweiten Hälfte des Korpus ausgemacht. Auch in der Wörterbuch-Analyse wurde das Token identifiziert. Da die Kontextansicht darauf hindeutet, dass die Form \textit{durchschnitten} häufig in geografischem Sinn gebraucht wird, wurde die Abfrage mit \texttt{[word="durch\-schnitt|\-durch\-schnittl.*\%c]} eingegrenzt. So werden nur Treffer gefunden, die das Token \textit{Durchschnitt} enthalten oder ein Token, das mit der Zeichenfolge \textit{durchschnittl} beginnt, jeweils sowohl gross- als auch kleingeschrieben. Interessant hier ist die diachrone Entwicklung der relativen Häufigkeit der entsprechenden Token im Gesamtkorpus (Abbildung~\ref{figure:4-1}). Sie bestätigt die Kernaussagen des Forschungsstandes zur Geschichte der Statistik, nämlich dass sie ab den 1830er-Jahren an Verbreitung gewinnt und, das zeigt das Korpus, dies auch in der Schweiz passiert. Die grossen Ausschläge der relativen Häufigkeit für die Jahre vor 1815 lassen sich auf einzelne Texte zurückführen. Ab etwa 1820 wird der Gebrauch stetiger und verteilt sich auf mehrere unterschiedliche Texte.
+
+\hspace{1cm}
+
+\begin{figure}[!ht]
+    \begin{tikzpicture}    
+    \pgfplotstableread[col sep=comma]{./Data/abbildung-4-1-durchschnittlich.csv}{\loadedtable}
+    \begin{axis}[
+        ybar,
+        width=\linewidth,
+        ymajorgrids=true,
+        xlabel=Jahr,
+        ylabel=Treffer per Mio.~Wörter,
+        legend style={at={(xticklabel cs:.5)},anchor=north},% Legende abhänging von xticks positioniert
+        x tick label style={rotate=90,anchor=east},
+        xmin = 1799,
+        xmax = 1871,
+        height = 7cm,
+        bar width=3pt,
+        xtick pos = left,
+        ytick pos = left,
+        ymin = 0,
+      ]
+    \addplot[x=Jahr, y=Treffer per Mio. Wörter, color=zhawgray, fill]table{\loadedtable};
+    \end{axis} 
+    \end{tikzpicture}  
+    \caption{Relative Häufigkeit für \texttt{[word="durch\-schnitt|\-durch\-schnittl.*"\%c]}}
+    \label{figure:4-1} 
+\end{figure}
+
+\space
+
+Für das Token \textit{prozent} ergibt sich eine stärkere Etablierung als adjektivische Zusammensetzung mit einer Zahl wie \textit{fünf-prozentiger}. Diese Verwendungen fallen in den Kontext von Finanzen und Steuern und selten von Statistik, wie die KWIC-Ansicht ergibt. Sie werden deshalb in dieser Arbeit nicht weiter verfolgt.
+
+\subsubsection{\textit{Statistik}}
+
+Zuletzt bleibt aus den Wörterbuchbefunden noch \textit{Statistik}. Die Abfrage \texttt{[word = ".*statist.*"\%c]} nach allen Token, die die Zeichenfolge \textit{statist} enthalten und damit sowohl die verschiedenen Formen der Substantive, Adjektive und Verben wie auch Komposita --- zusammengesetzte Wörter --- umfasst, liefert zahlreiche Treffer. Die 50 häufigsten Treffer ergeben einen ersten Einblick in die Verwendungsweisen von Statistik (Tabelle~\ref{table:4-6}).
+\\
+
+\begin{longtable}{llr}
+    \toprule
+    \textbf{Position} & \textbf{Token} & \textbf{Anzahl} \\
+    \midrule
+    \endfirsthead
+    \multicolumn{3}{c}%
+    {{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite}} \\[1mm]
+    \textbf{Position} & \textbf{Token} & \textbf{Anzahl} \\
+    \midrule
+    \endhead
+
+    \midrule \multicolumn{3}{r}{{Fortsetzung auf nächster Seite}} \\
+    \endfoot
+
+    \endlastfoot
+
+    1 & Statistik & \numprint{1129} \\ 
+    2 & statistischen & 613 \\ 
+    3 & statistische & 577 \\ 
+    4 & Statistisches & 110 \\ 
+    5 & statistisch & 108 \\ 
+    6 & statistischer & 76 \\ 
+    7 & Statistiker & 75 \\ 
+    8 & statist & 70 \\ 
+    9 & statistique & 35 \\ 
+    10 & Schulstatistik & 25 \\ 
+    11 & Forststatistik & 20 \\ 
+    12 & statisti & 19 \\ 
+    13 & Bevölkerungsstatistik & 15 \\ 
+    14 & Obstbaustatistik & 15 \\ 
+    15 & Kirchenstatistik & 13 \\ 
+    16 & Statistikern & 13 \\ 
+    17 & Criminalstatistik & 12 \\ 
+    18 & Statistiken & 12 \\ 
+    19 & statisti- & 10 \\ 
+    20 & Alpenstatistik & 8 \\ 
+    21 & statisti¬ & 8 \\ 
+    22 & geographisch-statistisches & 6 \\ 
+    23 & Militärstatistik & 6 \\ 
+    24 & bevölkerungsstatistischen & 5 \\ 
+    25 & Kriminalstatistik & 5 \\ 
+    26 & Mortalitätsstatistik & 5 \\ 
+    27 & Statisten & 5 \\ 
+    28 & statistischem & 5 \\ 
+    29 & Sterblichkeitsstatistik & 5 \\ 
+    30 & Armenstatistik & 4 \\ 
+    31 & geographisch-statistische & 4 \\ 
+    \bottomrule  
+    \caption{Ergebnisse für \texttt{[word=".*statist.*"\%c]} (Frequenz > 3).}
+    \label{table:4-6}
+\end{longtable}
+
+Betrachtet man die sprachliche Oberfläche, wird deutlich, dass «Statistik» im Korpus ein morphologisch produktives Wort ist, das die Bildung einiger Komposita angeregt hat. Diese lassen sich gruppieren nach:
+\begin{itemize}
+    \item geografisch-agrarischen Statistiken (\textit{Forst-}, \textit{Alpen-}, \textit{Obstbau-}, \textit{geographisch-}),
+    \item eine Reihe von Sozialstatistiken (\textit{Schul-}, \textit{Criminal-} bzw.~\textit{Kriminal-}, \textit{Armen-}, \textit{Bevölkerung-} und \textit{Mortalität-} bzw.~\textit{Sterblichkeit-}),
+    \item sowie staatskundlichen Statistiken (\textit{Militär-}, \textit{Kirchen-}).
+\end{itemize}
+
+Vorderhand bestätigt der Blick auf die sprachliche Oberfläche der Korpusdaten die Expansion der Statistik im 19.~Jahrhundert auch in der Schweiz. Staat, Wirtschaft, Landschaft und Gesellschaft werden Themen der Statistik und ein Wort wie \textit{Alpenstatistik} wird vorstellbar. Das häufige Auftreten des Token \textit{Schulstatistik} dürfte sich aus der Kompilationsweise des Korpus begründen. Dass in einem mit Fokus auf Schulbildung zusammengestellten Korpus allerdings ein so bunter Strauss an «Bindestrichstatistiken» zu sehen ist, ist nur durch die Etablierung von Statistik als «Denkstil» zur Behandlung gesellschaftlicher Probleme erklärbar, wie auch durch die Nähe des Bildungsthemas zu weiteren Sozialstatistiken. Der Kontrollüberschuss, den Sozialstatistiken erzeugen, wird hier bereits ebenfalls angedeutet.
+
+Eine diachrone Ansicht dieser «Bindestrichstatistiken» bestätigt weiterhin den Forschungsstand, indem sie zeigt, dass die morphologische Produktivität von \textit{Statistik} in unserem Korpus erst ab zirka 1830 einsetzt (Abbildung~\ref{figure:4-2}). Bis 1870 werden die Erwähnungen solcher Statistiken zunehmend häufiger, dies nicht in absoluter Zahl, sondern bezogen auf die Anzahl der Token im Gesamtkorpus. Hier sind die vier Peaks in den Jahren 1825, 1848, 1854 sowie 1865 auffällig. Ein Blick in die Treffer zu den vier Jahren zeigt, dass die sehr hohen Trefferzahlen sich jeweils auf einen Text zurückführen lassen. Zuerst sorgt 1825 die \textit{Geographisch-statistische Beschreibung des Cantons Bern} von Johann Rudolf Wyss für 28 der 30 Treffer des Jahres. 1848 ist es die in diesem Jahr auf Deutsch erschienene zweite Auflage von Stefano Franscinis \textit{Neue Statistik der Schweiz}, die für 309 der 314 Treffer verantwortlich ist. 1854 ist es das Werk \textit{Bevölkerungswissenschafliche Studien aus Belgien}, das ebenfalls für zirka 300 der insgesamt 394 Erwähnungen sorgt. Für den letzten Peak 1865 sorgt der bayerisch-pfälzische Statistiker Georg Friedrich Kolb mit der vierten Auflage seines \textit{Handbuchs der vergleichenden Statistik der Völkerzustands- und Staatenkunde}. Diese vier Texte können für diese Arbeit als statistische Ausreisser betrachtet werden, die die Aussage einer stetig zunehmenden Verwendung von «Statistik» nicht infrage stellen. Die Peaks können aber auch als Hinweis gesehen werden, um der Bedeutung dieser Werke für die Etablierung von Begriffen im Zusammenhang mit Statistik nachzugehen. Das ist allerdings nicht Gegenstand dieser Arbeit.
+
+\hspace{1cm}
+
+\begin{figure}[!ht]
+    \begin{tikzpicture}    
+    \pgfplotstableread[col sep=comma]{./Data/abbildung-4-2-statistik.csv}{\loadedtable}
+    \begin{axis}[
+        ybar,
+        width=\linewidth,
+        ymajorgrids=true,
+        xlabel=Jahr,
+        ylabel=Treffer per Mio.~Wörter,
+        legend style={at={(xticklabel cs:.5)},anchor=north},% Legende abhänging von xticks positioniert
+        x tick label style={rotate=90,anchor=east},
+        xmin = 1799,
+        xmax = 1871,
+        height = 7cm,
+        bar width=3pt,
+        xtick pos = left,
+        ytick pos = left,
+        ymin = 0,
+      ]
+    \addplot[x=Jahr, y=Treffer per Mio. Wörter, color=zhawgray, fill]table{\loadedtable};
+    \end{axis} 
+    \end{tikzpicture}  
+    \caption{Relative Häufigkeit für \texttt{[word=".*statist.*"\%c]}}
+    \label{figure:4-2} 
+\end{figure}
+
+\section{Zwischenfazit}
+
+Mit Vorbehalt der unsicheren Datenlage, lässt sich aus dieser ersten Exploration bereits schliessen, dass im Zusammenhang mit Statistik übliche Wörter durchaus ihren Niederschlag in unserem Korpus, und damit im schweizerischen Schuldiskurs des 19.~Jahrhunderts, gefunden haben. Die oben untersuchten Begriffe \textit{Tabelle, Durchschnitt, Prozent} und \textit{Statistik} stehen alle für grundsätzliche Konzepte statistischen Denkens und seiner textlichen Repräsentation. Statistische Spezialtermini wie etwa Normalverteilung oder Median wurden nicht gefunden. Dies schliesst allerdings nicht aus, dass es sie im Korpus gibt und sie aufgrund der fehlerhaften OCR-Erkennung nicht gefunden werden konnten. Dennoch kann darauf geschlossen werden, dass im vorliegenden Korpus eher die Ergebnisse und Inhalte von Statistiken referiert werden, mit der Angabe von Durchschnitten als einzige analytische Prozedur.
+
+Aus der Exploration ergibt sich auch, dass eine rein induktive Perspektive auf den hier vorliegenden Korpus zu kurz greifen würden, nicht zuletzt da die Daten mit erheblichen Unreinheiten belastet sind. Im Hinblick auf die Fragestellung nach der Digitalisierung der Schweizer Gesellschaft, verstanden als Beschreibung der Gesellschaft durch diskrete Zahlen und Kategorien, muss die Verwendung der Begriffe in ihren Kontexten betrachtet werden. Wie werden Statistiken und Tabellen verwendet? Worauf verweisen sie und welche Effekte zeitigen sie diskursiv? Dazu ist es auch hilfreich, deduktiv vorzugehen und einige Themenfelder der schweizerischen Schulgeschichte abzuschreiten.

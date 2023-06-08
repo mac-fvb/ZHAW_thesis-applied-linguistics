@@ -1,0 +1,104 @@
+\begin{figure}
+    \begin{filecontents*}{./Data/anzahl_schueler.csv}
+        \end{filecontents*}   
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=\linewidth,
+            xlabel={Jahr},
+            ylabel={Treffer per Mio. Wörter},
+            xmin=1800, xmax=1870,
+            ymin=0, ymax=300,
+            ymajorgrids=true,
+            x tick label style={rotate=35, anchor=east, yshift= -5pt},
+            legend pos=north west,
+            height = 10cm,
+            xtick pos = left,
+            ytick pos = left,
+        ]
+    %    \addplot [smooth, thick, zhawgray, dashed] table[x=Jahr, y=Treffer, col sep = comma]{./Data/durchschnittlich.csv};
+    %    \addlegendentry{Treffer}
+        \addplot [smooth, thick, zhawblue] table[x=Jahr, y=Treffer per Mio. Wörter, col sep = comma]{./Data/anzahl_schueler.csv};
+    %    \addlegendentry{Treffer per Mio. Wörter}
+        \end{axis}
+        \end{tikzpicture}
+        \caption{Relative Häufigkeit für \texttt{[pos= "CARD"][lemma= ".*schüler\-|.*schülerin|\-Knabe|\-Mädchen|\-Tochter|\-Kind|\-Schüler|\-Schülerin|Bube"]}}
+        \label{figure:5-3}
+    \end{figure}
+    
+    \begin{figure}
+        \begin{filecontents*}{./Data/durchschnittlich.csv}
+        \end{filecontents*}   
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=\linewidth,
+            xlabel={Jahr},
+            ylabel={Treffer per Mio. Wörter},
+            ymin=0, ymax=250,
+            ymajorgrids=true,
+            xmin=1800, xmax=1870,
+            x tick label style={font=\normalsize, rotate=90, anchor=east, yshift= -5pt},
+            legend pos=north west,
+            height = 7cm,
+            xtick pos = left,
+            ytick pos = left,
+        ]
+    %    \addplot [smooth, thick, zhawgray, dashed] table[x=Jahr, y=Treffer, col sep = comma]{./Data/durchschnittlich.csv};
+    %    \addlegendentry{Treffer}
+        \addplot [mark=o,only marks, mark options={scale=1.5}] table[x=Jahr, y=Treffer per Mio. Wörter, col sep = comma]{./Data/durchschnittlich.csv};
+    %    \addlegendentry{Treffer per Mio. Wörter}
+        \end{axis}
+        \end{tikzpicture}
+    
+    \end{figure}
+
+    \subsection{Lehrerinnen und Lehrer}
+
+    Ebenso wie die Schülerinnen und Schüler wurden auch die Lehrerinnen und Lehrer gezählt (Abbildung~\ref{figure:5-4}). Im Vergleich zu Suchbegriffen für Zahlen in Verbindung mit \textit{Schüler} etc. (Abbildung~\ref{figure:5-1}) fällt auf, dass die relativen Frequenzen niedriger sind und eine Zahl gefolgt von \textit{Lehrerin} oder \textit{Lehrer}. Um 1835 bis 1840 sehen wir ein etwas höheres Niveau an Treffern, das danach sinkt und ab 1855 sich wieder erhöht, in einzelnen Jahren sogar deutlich. 
+    
+    \begin{figure}
+        \begin{tikzpicture}    
+        \pgfplotstableread[col sep=comma]{./Data/lehrerinnen.csv}{\loadedtable}
+        \begin{axis}[
+            ybar,
+            width=\linewidth,
+            ymajorgrids=true,
+            xlabel=Jahr,
+            ylabel=Treffer per Mio.~Wörter,
+            legend style={at={(xticklabel cs:.5)},anchor=north},% Legende abhänging von xticks positioniert
+            x tick label style={rotate=90,anchor=east},
+            xmin = 1799,
+            xmax = 1871,
+            height = 7cm,
+            bar width=3pt,
+            xtick pos = left,
+            ytick pos = left,
+            ymin = 0,
+          ]
+        \addplot[x=Jahr, y=Treffer per Mio. Wörter, color=zhawgray, fill]table{\loadedtable};
+        \end{axis} 
+        \end{tikzpicture}  
+        \caption{Relative Häufigkeit für \texttt{([pos="CARD"]\-[lemma="Lehr\-er|Lehrer\-in"]}}
+        \label{figure:5-4} 
+    \end{figure}
+
+
+
+    \renewcommand{\arraystretch}{1.2}{
+    \begin{table}[!ht]
+        \footnotesize
+        \centering
+        \begin{tabular}{p{0.1cm}p{5cm}p{1cm}p{5cm}} \toprule
+            \textbf{Position} & \textbf{Kontext vor} & \textbf{Suchbegriff} & \textbf{Kontext nach} \\ \midrule 
+            2 & Schenken wir darum schließlich auch diesem Falle noch unsere Aufmerksamkeit ! Unsere  & Schulstatistik & \textbf{zeigt} allerdings , daß verhältnißmäßig mehr Lehrer ihren Stand wechseln , als  \\ 
+            4 & zu genügen . Und in der That , ein Blick ans die & Zensurtabellen & \textbf{zeigt} , daß die Schulen um die Stadt herum fast alle nur   \\ 
+            7 & im hiesigen Cantone unmittelbar vor der Einführung des nencn Schulgesetzes \textbf{zeigt} in & statistischer & Hinsicht die auf Beilage Nr. VI. befindliche , vom Erzichungsdepartemente damals veranstaltete \\ 
+            8 & mehrere Präsidenten dieser Behörden aus . An mehrern Orten , mie die  & Vericht\-erstattungs\-tabelle & \textbf{zeigt} , steht es mit Rücksicht auf den Schulbesuch der Schulpflegen noch   \\ 
+            9 & Real-Abtheilung zusammen 264 , und gegenwärtig 384 Schüler ; die Zusammenstellung der & Jahrestabellen & 	
+            seit 1856 \textbf{zeigt} , einige Schwankungen abgerechnet , eine stetige Zunahme der   \\ 
+            10 & Gemeinden wenig Er » freuliches berichtet werden . In Starkenbach zeigt die & Absenzen\-tabelle & auf einen Schüler durchschnittlich 9Ve , in Wintersberg 12 und in Ennetbühl   \\ 
+            \bottomrule
+        \end{tabular}
+        \caption{KWIC-Ansicht für \textit{zeigt} im Zusammenhang mit \texttt{[word=".*ta\-bell.*|\-.*sta\-tist.*"]}}
+        \label{table:5-2}
+    \end{table}
+}

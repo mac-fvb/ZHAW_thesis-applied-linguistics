@@ -1,0 +1,32 @@
+There are 6,539 different words in the collocation database for this query (Query "[word=".*tabell.*|.*statist.*"]" returned 2,698 matches in 990 different texts)  
+__________________
+
+No.	Word	Total no. in whole corpus	Expected collocate frequency	Observed collocate frequency	In no. of texts	Log-likelihood value
+
+1	enthält	841	0.306	21	19	136.72
+2	nähern	7	0.003	5	5	71
+3	ergibt	2119	0.772	13	11	49.05
+4	entnehmen	978	0.356	10	9	47.514
+5	Fügen	152	0.055	6	6	44.588
+6	zahlt	1394	0.508	8	6	29.178
+7	weist	1411	0.514	7	7	23.625
+8	zeigt	8766	3.192	14	14	19.798
+9	ergiebt	1161	0.423	5	5	15.57
+10	läßt	2817	1.026	7	7	14.953
+11	geben	22664	8.252	21	16	13.747
+12	folgen	10104	3.679	12	11	11.741
+13	u	61388	22.353	40	2	11.277
+14	ließ	1883	0.686	5	5	11.251
+15	od	3332	1.213	6	1	9.616
+16	besitzen	3851	1.402	6	5	8.255
+17	liefert	2826	1.029	5	5	7.873
+18	weisen	2938	1.07	5	5	7.565
+19	gaben	5325	1.939	5	4	3.353
+20	geht	12830	4.672	9	8	3.148
+21	gibt	14159	5.156	9	9	2.341
+22	zeigen	6554	2.386	5	5	2.171
+23	giebt	9434	3.435	6	6	1.564
+24	lassen	28959	10.545	10	10	-0.029
+25	steht	18770	6.835	5	5	-0.544
+26	macht	21800	7.938	5	5	-1.254
+27	d	44438	16.181	6	4	-8.463

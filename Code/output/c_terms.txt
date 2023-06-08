@@ -1,0 +1,1 @@
+[word = "cauchyverteilung|cauchyverteilungen|centroid|centroide|chigramm|chiquadrat|chiquadrate|chiquadratverteilung|chiquadratverteilungen|clusteranalyse|clusteranalysen|clusterzentrenanalyse|clusterzentrenanalysen|clusterzuordnung|clusterzuordnungen|codierung|codierungen|covariation|covariationen"]

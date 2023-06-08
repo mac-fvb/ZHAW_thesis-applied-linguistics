@@ -1,0 +1,221 @@
+% !TEX root = main.tex
+
+%----------------------------
+%   Fonts and characters
+%----------------------------
+
+% Support for special characters
+\usepackage[utf8]{inputenc}    % Specify input encoding
+\usepackage[T1]{fontenc}       % Specify font encoding
+
+% Set main fonts
+% Fonts catalogue: https://tug.org/FontCatalogue/
+% \usepackage{mathpazo}          % Use the Palatino font by default
+\usepackage{beramono}          % Override the monospace/typewriter font
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\everymath={\sf}
+
+% ZHAW title font
+% Try to load Helvetica Rounded Bold, and OpenType font.
+% Loading OTF or system fonts is possible with XeLaTeX.
+% If the document is compiled using pdfLaTeX, resort 
+\usepackage{ifxetex}
+\ifxetex
+    \usepackage{fontspec}
+    \newfontfamily\zhawtitlefont{Helvetica Rounded Bold}
+\else
+    \newcommand{\zhawtitlefont}{\scshape}
+\fi
+
+% \usepackage[scaled]{helvet}
+
+
+%----------------------------
+%   Environments
+%----------------------------
+
+\usepackage{caption}           % Customized caption
+\usepackage{subcaption}        % Subfigure captions
+\usepackage{makecell}          % Per-cell formatting in tables (\makecell)
+\usepackage{pdfpages}          % Required to include PDF files/graphics (\includepdf)
+
+\usepackage{todonotes}         % Introduces the command \todo
+\setlength{\marginparwidth}{2.5cm} % Adjust this if the todo notes are out of margins
+
+% Create boxes as follows:
+% \begin{colorbox}{red}{2}
+\usepackage{tcolorbox}
+\newtcolorbox{textbox}[2]{
+    arc=3pt,
+    boxrule=#2pt,
+    colback=#1!25!white,
+    width=\textwidth,
+    halign=left,
+    valign=center,
+    colframe=#1!75!black
+}
+
+%----------------------------
+%   Colors
+%----------------------------
+
+% Set up colors
+\usepackage{xcolor}
+% ZHAW Blue: Pantone 2945 U / R0 G100 B166
+\definecolor{zhawblue}{RGB}{0, 100, 166}
+\definecolor{zhawgray}{RGB}{98, 98, 98}
+\definecolor{zhawgray75}{RGB}{156, 156, 156}
+\definecolor{zhawgray50}{RGB}{224, 224, 224}
+\definecolor{zhawgray25}{RGB}{187, 204, 227}
+
+% Colors related to code listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codebackground}{rgb}{0.93,0.94,0.95}
+
+%----------------------------
+%   Code listings
+%----------------------------
+
+% Setup code listings
+\usepackage{listings}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebackground},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+%    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+% minted is an alternative code listing package. (See chapter 2)
+% For it to run successfully, ensure the following:
+% - the Python package Pygments. Install with the following command:
+%       python -m pip install Pygments
+% - pdflatex (or xelatex) is executed with the flag --shell-escape
+%   If you are using a TEX editor, you can modify the typesetting 
+%   command somewhere in the settings.
+%\usepackage[outputdir=build]{minted}
+%\usemintedstyle{xcode}
+% For fancier coloring schemes, see here:
+% https://tex.stackexchange.com/questions/585582
+% One could also create an own style in Pygments
+% https://pygments.org/docs/styles/#creating-own-styles
+
+%----------------------------
+%   References
+%----------------------------
+
+% Set up references
+\usepackage[
+    backend=biber,             % Use biber backend (an external tool)
+    sorting=nyt,              % Enumerates the reference in order of their appearance
+    style=apa,       % Choose here your preferred citation style, authoryear-comp
+    isbn=false, % No ISBN
+]{biblatex}
+\addbibresource{references.bib}   % The filename of the bibliography
+\usepackage[german=swiss]{csquotes} 
+                               % Required to generate Swiss-German quotes (alternative [autostyle=true])
+                               % in the bibliography
+\setlength\bibitemsep{0.5\baselineskip}
+
+\newenvironment*{innerquote}
+  {\setlength{\leftmargini}{1cm}%
+   \quote
+   \singlespacing\fontsize{10pt}{10pt}\selectfont}
+  {\endquote}
+\SetBlockEnvironment{innerquote}
+
+
+%----------------------------------------------------------------------------------------
+%   MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+    paper=a4paper,      % Change to letterpaper for US letter
+    inner=2cm,        % Inner margin
+    outer=2cm,        % Outer margin
+    top=3cm,          % Top margin
+    bottom=1cm,       % Bottom margin
+    %bindingoffset=.5cm, % Binding offset
+    %showframe,         % Show the type block of the page
+    footskip = 17mm,
+}
+
+\setlength{\parskip}{1em}
+\usepackage{enumitem}          % Layout control for list environments (e.g, itemize)
+\setlist{noitemsep}           % Suppress extra spaces between items
+%\setlist{nosep}               % Suppress spaces before/after list environments
+
+%
+% NUMPRINT - Typesetting for numbers
+%
+
+\usepackage{numprint}
+\npthousandsep{'}      % Define the separator for thousands
+
+%
+% Table design
+%
+
+\setlength{\tabcolsep}{18pt} % 18 pt space l&r between text and border
+\renewcommand{\arraystretch}{1.5} % height of each row relative 1.5 to its default height
+
+\usepackage{hyperref} %% to turn the links clickable and load this before cleveref
+\usepackage{cleveref}
+
+% each of the following has two versions
+%   \crefname{environmentname}{singular}{plural}, to be used mid-sentence
+%   \Crefname{environmentname}{singular}{plural}, to be used at the beginning of a sentence
+\crefname{table}{Tabelle}{Tabellen}
+\Crefname{table}{Tabelle}{Tabellen}
+\crefname{figure}{Abbildung}{Abbildungen}
+\Crefname{figure}{Abbildung}{Abbildungen}
+\crefname{equation}{Gleichung}{Gleichungen}
+\Crefname{Equation}{Gleichung}{Gleichungen}
+
+\usepackage{graphicx}
+\graphicspath{ {./Figures/} }
+
+
+\usepackage{longtable}
+
+%use dashes instead of bullets for lists
+\renewcommand\labelitemi{---}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\usepackage{booktabs}
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat = newest}
+\pgfkeys{/pgf/number format/.cd,1000 sep={}}
+
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage[bottom]{footmisc}
+
+\deffootnote{1.5em}{1em}{% [labelwidth]{labelindent}{paragraph indent}{label definition
+  \makebox[1.5em][l]{\thefootnotemark}%
+}
+
+\setlength{\footheight}{40.0289pt}
+
+
+\usepackage[document]{ragged2e} % ZHAW-AL demands ragged-right text
